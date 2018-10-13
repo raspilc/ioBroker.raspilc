@@ -6,6 +6,10 @@
       "0.0.1": {
         "en": "First Release",
         "de": "Initiale Version"
+      },
+      "0.1.2": {
+        "en": "FRAM-support added",
+        "de": "FRAM-Support hinzugefügt"
       }
     },
 
