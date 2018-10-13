@@ -26,6 +26,7 @@ of dimmers or temperatures).
 TODO:
 
 -Support for 4AO-module
+-cleaning and optimizing code ;-)
 
 
 
