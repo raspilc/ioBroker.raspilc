@@ -1,0 +1,63 @@
+{
+  "common": {
+    "name": "raspilc",
+    "version": "0.0.1",
+    "news": {
+      "0.0.1": {
+        "en": "First Release",
+        "de": "Initiale Version"
+      }
+    },
+
+    "title": "RasPiLC",
+
+    "titleLang": {
+      "en": "analog modules",
+      "de": "analog modules"
+    },
+
+    "desc": {
+      "en": "raspilc adapter for analogue modules",
+      "de": "RasPiLC Adapter f�r Analogmodule"
+    },
+
+    "authors": [
+      "Ivo Lohs <info@raspilc.de>"
+    ],
+
+    "docs": {
+      "en": "docs/en/admin.md",
+      "de": "docs/de/admin.md"
+    },
+
+    "platform": "Javascript/Node.js",
+    "mode": "daemon",
+    "icon": "raspilc.png",
+    "materialize": true,
+    "enabled": true,
+    "extIcon": "https://raw.githubusercontent.com/raspilc/ioBroker.raspilc/master/admin/raspilc.png",
+    "keywords": ["raspilc", "vis", "GUI", "graphical", "scada"],
+    "readme": "https://github.com/ioBroker/ioBroker.raspilc/blob/master/README.md",
+    "loglevel": "info",
+    "type": "hardware",
+    "license": "MIT",
+    "messagebox": false,
+    "restartAdapters": ["vis"]
+  },
+
+  "native": {
+    "Module_inserted": false,
+    "FRAM": false,
+    "mySelect": "4-AI-Module",
+    "Interval": 1000,
+    "busNum": 1,
+    "devNum": 1,
+    "dp": [],
+    "FRAM_load_delay": 10000,
+    "i2cBusNo": 1
+  },
+
+  "objects": [
+
+  ]
+}

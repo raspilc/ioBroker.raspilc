@@ -1,0 +1,222 @@
+<html>
+
+<head>
+  <!-- these 4 files always have to be included -->
+  <link rel="stylesheet" type="text/css" href="../../lib/css/fancytree/ui.fancytree.min.css"/>
+   <link rel="stylesheet" type="text/css" href="../../css/adapter.css"/>
+   <link rel="stylesheet" type="text/css" href="../../lib/css/materialize.css">
+
+   <script type="text/javascript" src="../../lib/js/jquery-3.2.1.min.js"></script>
+   <script type="text/javascript" src="../../socket.io/socket.io.js"></script>
+
+   <script type="text/javascript" src="../../lib/js/materialize.js"></script>
+   <script type="text/javascript" src="../../lib/js/jquery-ui.min.js"></script>
+   <script type="text/javascript" src="../../lib/js/jquery.fancytree-all.min.js"></script>
+
+   <script type="text/javascript" src="../../js/translate.js"></script>
+   <script type="text/javascript" src="../../lib/js/selectID.js"></script>
+   <script type="text/javascript" src="../../js/adapter-settings.js"></script>
+   <script type="text/javascript" src="words.js"></script>
+   <script type="text/javascript" src="actions.js"></script>
+
+  <style>
+    .m .col .select-wrapper+label {
+   top: -26px;
+  }
+     .m span{
+         font-size: 0.9em;
+     }
+ </style>
+  <!-- you have to define 2 functions in the global scope: -->
+  <script type="text/javascript">
+    // ... and the function save has to exist.
+    // you have to make sure the callback is called with the settings object as first param!
+
+
+
+
+    var selectId;
+
+    function initSelectId(cb) {
+      if (selectId) return cb(selectId);
+      socket.emit('getObjects', function(err, res) {
+        if (!err && res) {
+          selectId = $('#dialog-select-member').selectId('init', {
+            noMultiselect: false,
+            objects: res,
+            imgPath: '../../lib/css/fancytree/',
+            filter: {
+              type: 'state'
+            },
+            name: 'vcard-select-state',
+            texts: {
+              select: _('Select'),
+              cancel: _('Cancel'),
+              all: _('All'),
+              id: _('ID'),
+              name: _('Name'),
+              role: _('Role'),
+              room: _('Room'),
+              value: _('Value'),
+              selectid: _('Select ID'),
+              from: _('From'),
+              lc: _('Last changed'),
+              ts: _('Time stamp'),
+              wait: _('Processing...'),
+              ack: _('Acknowledged'),
+              selectAll: _('Select all'),
+              unselectAll: _('Deselect all'),
+              invertSelection: _('Invert selection')
+            },
+            columns: ['image', 'name', 'role', 'room']
+          });
+          cb && cb(selectId);
+        }
+      });
+    }
+
+    function load(settings, onChange) {
+           // example: select elements with id=key and class=value and insert value
+           for (var key in settings) {
+               // example: select elements with id=key and class=value and insert value
+               if ($('#' + key + '.value').attr('type') == 'checkbox') {
+                   $('#' + key + '.value').prop('checked', settings[key]).change(onChange);
+               } else {
+                   $('#' + key + '.value').val(settings[key]).change(onChange).keyup(onChange);
+               }
+           }
+           $('#select1').click(function () {
+               initSelectId(function (sid) {
+                   sid.selectId('show', $('#dp').val(), function (newId) {
+                       if (newId != $('#dp').val()) {
+                           $('#dp').val(newId);
+                           onChange();
+                       }
+                   });
+               });
+           });
+           onChange(false);
+           M.updateTextFields();
+}
+
+function save(callback) {
+     // example: select elements with class=value and build settings object
+     var obj = {};
+     $('.value').each(function () {
+         var $this = $(this);
+         if ($this.attr('type') === 'checkbox') {
+             obj[$this.attr('id')] = $this.prop('checked');
+         } else {
+             obj[$this.attr('id')] = $this.val();
+         }
+     });
+     callback(obj);
+ }
+  </script>
+</head>
+
+<body>
+  <!-- you have to put your config page in a div with id adapter-container -->
+  <div class="m adapter-container">
+    <!-- Forms are the standard way to receive user inputted data.
+             Learn more http://materializecss.com/forms.html-->
+    <div class="row">
+      <div class="input-field col s6">
+        <img src="raspilc.png" class="logo">
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s3">
+        <input class="value" id="Module_inserted" type="checkbox" />
+        <label for="Module_inserted" class="translate">Module inserted</label>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12 m6 l4">
+        <input type="number" class="value" id="busNum" />
+        <label for="busNum" class="translate">Bus Number</label>
+        <!-- Important: label must come directly after input. Label is important. -->
+        <span class="translate">Bus Number</span>
+      </div>
+      <div class="input-field col s12 m6 l4">
+        <input type="number" class="value" id="devNum" />
+        <label for="devNum" class="translate">Device Number</label>
+        <!-- Important: label must come directly after input. Label is important. -->
+        <span class="translate">Device Number</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s12 m4">
+        <select class="value" id="mySelect">
+          <option value="4-AI-Module" class="translate">4-AI-Module</option>
+          <option value="1AI-1AO-Module" class="translate">1AI-1AO-Module</option>
+        </select>
+        <label for="mySelect" class="translate">Select Module</label>
+      </div>
+
+
+      <div class="input-field col s12 m6 l4">
+        <input type="number" class="value" id="Interval" />
+        <label for="Interval" class="translate">Interval</label>
+        <!-- Important: label must come directly after input. Label is important. -->
+        <span class="translate">Interval</span>
+      </div>
+    </div>
+
+    <div class="row">
+      <div class="input-field col s3">
+        <input class="value" id="FRAM" type="checkbox" />
+        <label for="FRAM" class="translate">FRAM</label>
+      </div>
+    </div>
+
+    <div class="input-field col s12 m6 l4">
+      <input type="number" class="value" id="i2cBusNo" />
+      <label for="i2cBusNo" class="translate">Device Number</label>
+      <!-- Important: label must come directly after input. Label is important. -->
+      <span class="translate">Bus Number</span>
+    </div>
+
+    <div class="input-field col s12 m6 l4">
+      <input type="number" class="value" id="FRAM_load_delay" />
+      <label for="FRAM_load_delay" class="translate">Delay</label>
+      <!-- Important: label must come directly after input. Label is important. -->
+      <span class="translate">Delay</span>
+    </div>
+
+    <div>
+      <button id="select1">...</button>
+      <input class="value" id="dp">
+        <label for="key">Datapoint</label>
+        <span class="translate">Datenpunkt</span>
+    </div>
+
+    <div class="row">
+      <div class="col s12">
+        <p class="translate">on save adapter restarts with new config immediately</p>
+      </div>
+    </div>
+
+    <div id="dialog-select-member" class="modal modal-fixed-footer">
+      <div class="modal-content">
+          <div class="row">
+              <div class="col s12 title"></div>
+          </div>
+          <div class="row">
+              <div class="col s12 dialog-content">
+              </div>
+          </div>
+      </div>
+      <div class="modal-footer">
+          <a class="modal-action modal-close waves-effect waves-green btn btn-set"><i class="large material-icons left">check</i><span class="translate">Select</span></a>
+          <a class="modal-action modal-close waves-effect waves-green btn btn-close"><i class="large material-icons left ">close</i><span class="translate">Cancel</span></a>
+      </div>
+  </div>
+  </div>
+
+</body>
+
+</html>

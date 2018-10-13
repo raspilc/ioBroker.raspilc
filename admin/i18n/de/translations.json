@@ -1,0 +1,10 @@
+{
+  "4-AI-Module": "4-AI-Modul",
+  "1AI-1AO-Module": "1AI-1AO-Modul",
+  "Select Module": "Modul Auswahl",
+  "on save adapter restarts with new config immediately": "Beim Speichern der Einstellungen wird der Adapter sofort neu gestartet.",
+  "Bus Number": "Bus Nummer",
+  "Device Number": "Gerät Nummer",
+  "Module inserted": "Modul aktiviert",
+  "Interval": "Intervall"
+}
