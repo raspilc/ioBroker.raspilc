@@ -1,7 +1,7 @@
 {
   "common": {
     "name": "raspilc",
-    "version": "0.0.1",
+    "version": "0.1.2",
     "news": {
       "0.0.1": {
         "en": "First Release",
@@ -17,8 +17,8 @@
     },
 
     "desc": {
-      "en": "raspilc adapter for analogue modules",
-      "de": "RasPiLC Adapter f�r Analogmodule"
+      "en": "raspilc adapter for analogue modules and FRAM",
+      "de": "RasPiLC Adapter für Analogmodule und FRAM"
     },
 
     "authors": [

@@ -38,7 +38,7 @@
     ]
   ],
   "_from": "https://github.com/raspilc/ioBroker.raspilc/tarball/master",
-  "_id": "iobroker.raspilc@0.0.1",
+  "_id": "iobroker.raspilc@0.1.2",
   "_inCache": true,
   "_location": "/iobroker.raspilc",
   "_phantomChildren": {
@@ -94,7 +94,8 @@
     "Analog",
     "MCP3201",
     "MCP3204",
-    "MCP4921"
+    "MCP4921",
+    "FRAM"
   ],
   "license": "MIT",
   "main": "main.js",
@@ -109,5 +110,5 @@
   "scripts": {
     "test": "node node_modules/mocha/bin/mocha --exit"
   },
-  "version": "0.0.1"
+  "version": "0.1.2"
 }
