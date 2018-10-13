@@ -4,17 +4,35 @@
 
 This adapter supports analog modules based on the MCP3204 or MCP3201 and MCP4921.
 
-Install the adapter, activate the checkbox "Module inserted" and choose your installed module.
+Install the adapter, activate the checkbox "Module inserted" and choose your
+installed module.
 Then choose the update interval for analog values and save the settings.
+
+FRAM-support:
+supports nonvolatile FRAM-devices (I2C-bus) FM24Cxx. In config-dialog you can
+select ID's of datapoints (boolean or number) and choose the delay time for
+reading back the values form FRAM. The adapter detects changes of the selected
+datapoints and stores the values in FRAM. If the adapter or the whole system
+restarts, the adapter waits the desired delay time and fires the values back
+in ioBrokers datapoints. Numerical datapoints can have a value from 0 to 253,
+that can stored in FRAM because only byte-access is realized in adapter and
+All values will be rounded to integer.
+Values larger than 253 will be ignored (should be enough for storing states
+of dimmers or temperatures).   
+
+
 
 
 TODO:
 
 -Support for 4AO-module
--Support for 8kB F-RAM-module
+
 
 
 ## Changelog
+
+### 0.1.2 (2018.10.14)
+* (raspilc) FRAM-support added
 
 ### 0.0.1 (2018.10.06)
 * (raspilc) initial release
