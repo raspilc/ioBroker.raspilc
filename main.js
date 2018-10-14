@@ -90,7 +90,7 @@ function FRAMStartup() {
       Statelist = Statelist.split(",");
       for (var i = 0; i < Statelist.length; i++) {
         adapter.subscribeForeignStates(Statelist[i]);
-        adapter.log.info(Statelist[i]);
+        adapter.log.debug(Statelist[i]);
       }
 
       if (framFound >= 0) {
@@ -130,9 +130,9 @@ function FRAMwrite() {
       adapter.setForeignState(Statelist[i], tempReceive);
       //  adapter.log.info("Objekt Name: " + Statelist[i] + " number: " + tempReceive + " written");
     } else {
-      adapter.log.warn("Variable kann nicht geschrieben werden");
+      adapter.log.warn('Variable kann nicht geschrieben werden');
     }
-    adapter.log.debug("Objekt Name: " + Statelist[i] + " restored");
+    adapter.log.debug('Objekt Name: ' + Statelist[i] + ' restored');
   }
 
   i2c1.closeSync();
@@ -221,7 +221,7 @@ function main() {
    *
    */
 
-  if (adapter.config.Module_inserted == true && (adapter.config.mySelect == "4-AI-Module")) {
+  if (adapter.config.Module_inserted == true && (adapter.config.mySelect == '4-AI-Module')) {
 
     adapter.setObject('Analog.Channel0', {
       type: 'state',
@@ -264,8 +264,8 @@ function main() {
     });
 
     read4AI();
-    adapter.log.debug("Analogports lesen gestartet");
-  } else if (adapter.config.Module_inserted == true && (adapter.config.mySelect == "1AI-1AO-Module")) {
+    adapter.log.debug('Analogports lesen gestartet');
+  } else if (adapter.config.Module_inserted == true && (adapter.config.mySelect == '1AI-1AO-Module')) {
 
     adapter.setObject('Analog.AnalogIn', {
       type: 'state',
@@ -309,7 +309,7 @@ function read4AI() {
 
 
 function read1() {
-  adapter.log.info("read1-Funktion gestartet");
+  adapter.log.debug('Read 4AI-Funktion gestartet');
   var Interval = Number(adapter.config.Interval);
   var busNum = Number(adapter.config.busNum);
   var devNum = Number(adapter.config.devNum);
