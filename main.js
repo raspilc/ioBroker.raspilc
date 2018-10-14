@@ -43,7 +43,7 @@ adapter.on('unload', function(callback) {
 
 //is called if a subscribed state changes
 adapter.on('stateChange', function(id, state) {
-  adapter.log.info('changed ID: ' + id + ' Value: ' + state.val);
+  adapter.log.debug('changed ID: ' + id + ' Value: ' + state.val);
   if (adapter.config.FRAM == true) {
     FRAMsave(Statelist.indexOf(id), state.val);
   } else return;
@@ -79,7 +79,7 @@ function FRAMStartup() {
     const i2copen = i2c1.openSync(Number(adapter.config.i2cBusNo));
     i2cdet = i2copen.scanSync();
     framFound = i2cdet.indexOf(80);
-    adapter.log.info('Detected devices: ' + i2cdet);
+    adapter.log.debug('Detected devices: ' + i2cdet);
 
   };
 
@@ -98,7 +98,7 @@ function FRAMStartup() {
       }
     }, Number(adapter.config.FRAM_load_delay));
   } else {
-    adapter.log.info('WARNING! No FRAM found!!!');
+    adapter.log.warn('WARNING! No FRAM found!!!');
     return;
   };
 }
@@ -130,9 +130,9 @@ function FRAMwrite() {
       adapter.setForeignState(Statelist[i], tempReceive);
       //  adapter.log.info("Objekt Name: " + Statelist[i] + " number: " + tempReceive + " written");
     } else {
-      adapter.log.info("Variable kann nicht geschrieben werden");
+      adapter.log.warn("Variable kann nicht geschrieben werden");
     }
-    adapter.log.info("Objekt Name: " + Statelist[i] + " restored");
+    adapter.log.debug("Objekt Name: " + Statelist[i] + " restored");
   }
 
   i2c1.closeSync();
@@ -167,7 +167,7 @@ function FRAMsave(StateToSave, valToWrite) {
     if (valToWrite <= 253) {
       temp2 = Math.round(valToWrite); //Runden auf Ganzzahl!
     } else {
-      adapter.log.info('Wert zu gross zum Speichern oder falscher Typ, ignoriert!')
+      adapter.log.warn('Wert zu gross zum Speichern oder falscher Typ, ignoriert!')
     };
   };
 
@@ -202,13 +202,13 @@ function main() {
 
   // The adapters config (in the instance object everything under the attribute "native") is accessible via
   // adapter.config                          :
-  adapter.log.info('config FRAM             : ' + adapter.config.FRAM);
-  adapter.log.info('config Module_inserted  : ' + adapter.config.Module_inserted);
-  adapter.log.info('config mySelect         : ' + adapter.config.mySelect);
-  adapter.log.info('config busNumber        : ' + adapter.config.busNum);
-  adapter.log.info('config deviceNumber     : ' + adapter.config.devNum);
-  adapter.log.info('config Startup-Delay    : ' + adapter.config.FRAM_load_delay);
-  adapter.log.info('config i2c-bus          : ' + adapter.config.i2cBusNo);
+  adapter.log.debug('config FRAM             : ' + adapter.config.FRAM);
+  adapter.log.debug('config Module_inserted  : ' + adapter.config.Module_inserted);
+  adapter.log.debug('config mySelect         : ' + adapter.config.mySelect);
+  adapter.log.debug('config busNumber        : ' + adapter.config.busNum);
+  adapter.log.debug('config deviceNumber     : ' + adapter.config.devNum);
+  adapter.log.debug('config Startup-Delay    : ' + adapter.config.FRAM_load_delay);
+  adapter.log.debug('config i2c-bus          : ' + adapter.config.i2cBusNo);
 
 
   /**
