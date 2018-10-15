@@ -11,7 +11,7 @@ Then choose the update interval for analog values and save the settings.
 FRAM-support:
 supports nonvolatile FRAM-devices (I2C-bus) FM24Cxx. In config-dialog you can
 select ID's of datapoints (boolean or number) and choose the delay time for
-reading back the values form FRAM. The adapter detects changes of the selected
+reading back the values from FRAM. The adapter detects changes of the selected
 datapoints and stores the values in FRAM. If the adapter or the whole system
 restarts, the adapter waits the desired delay time and fires the values back
 in ioBrokers datapoints. Numerical datapoints can have a value from 0 to 253,
